@@ -1,0 +1,12 @@
+;!zprint {:map {:respect-nl? true}}
+{:deps true
+ :dev-http {8080 "public"}
+
+ :builds
+ {:main {:target :browser
+         :output-dir "public/js/compiled"
+         :asset-path "/js/compiled"
+         :modules {:main {:entries [main]
+                          :init-fn main/init}}
+         :devtools {:ignore-warnings true
+                    :reload-strategy :full}}}}

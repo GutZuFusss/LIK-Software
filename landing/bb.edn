@@ -1,0 +1,13 @@
+{:paths ["build"]
+ :tasks {clean {:doc "Removes build artifacts and caches"
+                :requires ([babashka.fs :as fs])
+                :task (do (fs/delete-tree ".cpcache")
+                          (fs/delete-tree "target"))}
+         dev {:doc "Run development server with hot reloading"
+              :task (shell "npx shadow-cljs watch main")}
+         release {:doc "Transpile to optimized JS for deployment"
+                  :task (shell "npx shadow-cljs release main")}
+         setup {:doc "Prepare for compilation by installing dependencies etc."
+                :task (run 'setup:npm-install)}
+         setup:npm-install {:doc "Installs the npm dependencies"
+                            :task (shell "npm install")}}}
